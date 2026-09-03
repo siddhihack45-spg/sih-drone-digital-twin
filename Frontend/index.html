@@ -4,149 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PinkVision AI | Geospatial Digital Twin</title>
+    <title>AEROVISION | Drone Digital Twin</title>
 
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <meta
+        name="description"
+        content="Autonomous drone visual reconstruction, SLAM, sensor fusion and digital twin mission control."
+    >
+
+    <link rel="stylesheet" href="style.css">
 
     <!-- Three.js -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 
-    <!-- Orbit Controls -->
+    <!-- Three.js Controls -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
-    <!-- PLY Loader -->
+    <!-- PLY -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/PLYLoader.js"></script>
 
-    <!-- OBJ Loader -->
+    <!-- OBJ -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
 
-    <!-- GLTF Loader -->
+    <!-- GLTF -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-
-    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- =========================================================
-     BACKGROUND
-========================================================= -->
-
-<div class="background-glow glow-one"></div>
-<div class="background-glow glow-two"></div>
-<div class="background-grid"></div>
-
-
-<!-- =========================================================
-     APP
-========================================================= -->
+<div class="space-bg">
+    <div class="stars stars-1"></div>
+    <div class="stars stars-2"></div>
+    <div class="stars stars-3"></div>
+    <div class="scanline"></div>
+</div>
 
 <div class="app-shell">
 
-    <!-- =====================================================
-         SIDEBAR
-    ====================================================== -->
+    <!-- ================= SIDEBAR ================= -->
 
     <aside class="sidebar">
 
         <div class="brand">
-            <div class="brand-logo">
-                PV
+
+            <div class="brand-mark">
+                <span>✦</span>
             </div>
 
             <div>
-                <div class="brand-title">PinkVision</div>
-                <div class="brand-subtitle">AI DIGITAL TWIN</div>
+                <div class="brand-name">AEROVISION</div>
+                <div class="brand-sub">AUTONOMOUS DIGITAL TWIN</div>
             </div>
+
         </div>
 
-
-        <div class="system-status">
+        <div class="mission-status">
             <span class="status-dot"></span>
-            <div>
-                <strong>System Online</strong>
-                <small>All reconstruction services ready</small>
-            </div>
+            SYSTEM ONLINE
         </div>
 
+        <nav class="navigation">
 
-        <nav class="sidebar-nav">
+            <a href="#overview" class="nav-item active">
+                <span class="nav-icon">◉</span>
+                <span>Overview</span>
+            </a>
 
-            <div class="nav-label">PLATFORM</div>
-
-            <button class="nav-item active" data-section="dashboard">
-                <span class="nav-icon">⌂</span>
-                <span>Dashboard</span>
-            </button>
-
-            <button class="nav-item" data-section="reconstruction">
-                <span class="nav-icon">◈</span>
+            <a href="#reconstruction" class="nav-item">
+                <span class="nav-icon">◇</span>
                 <span>Reconstruction</span>
-            </button>
+            </a>
 
-            <button class="nav-item" data-section="slam">
+            <a href="#trajectory" class="nav-item">
                 <span class="nav-icon">⌁</span>
-                <span>Visual SLAM</span>
-            </button>
+                <span>Trajectory</span>
+            </a>
 
-            <button class="nav-item" data-section="fusion">
-                <span class="nav-icon">✦</span>
+            <a href="#fusion" class="nav-item">
+                <span class="nav-icon">⌘</span>
                 <span>Sensor Fusion</span>
-            </button>
+            </a>
 
-            <button class="nav-item" data-section="digital-twin">
-                <span class="nav-icon">⬡</span>
-                <span>Digital Twin</span>
-            </button>
-
-            <div class="nav-label">ANALYSIS</div>
-
-            <button class="nav-item" data-section="analytics">
+            <a href="#analytics" class="nav-item">
                 <span class="nav-icon">▥</span>
                 <span>Analytics</span>
-            </button>
+            </a>
 
-            <button class="nav-item" data-section="confidence">
-                <span class="nav-icon">✓</span>
-                <span>Confidence Map</span>
-            </button>
+            <a href="#digital-twin" class="nav-item">
+                <span class="nav-icon">◎</span>
+                <span>Digital Twin</span>
+            </a>
 
         </nav>
 
-
         <div class="sidebar-bottom">
 
-            <div class="ai-card">
+            <div class="mission-card">
 
-                <div class="ai-card-header">
-                    <div class="ai-orb">✦</div>
-                    <span>AI ENGINE</span>
+                <div class="mission-label">MISSION</div>
+
+                <div class="mission-title">
+                    DRONE-3D / 026
                 </div>
 
-                <strong>Reconstruction Core</strong>
-
-                <p>
-                    Single-pass geometry and depth intelligence active.
-                </p>
-
-                <div class="ai-progress">
-                    <span style="width: 87%;"></span>
+                <div class="mission-row">
+                    <span>MODE</span>
+                    <strong>RECON</strong>
                 </div>
 
-                <div class="ai-progress-label">
-                    <span>Processing readiness</span>
-                    <strong>87%</strong>
+                <div class="mission-row">
+                    <span>FRAME</span>
+                    <strong id="sideFrameCount">868</strong>
+                </div>
+
+                <div class="mission-row">
+                    <span>STATUS</span>
+                    <strong class="green-text">READY</strong>
                 </div>
 
             </div>
 
-
-            <div class="sidebar-footer">
-                <span>SIH 2026</span>
-                <span>v1.0.0</span>
+            <div class="version">
+                AEROVISION v1.0
             </div>
 
         </div>
@@ -154,42 +132,36 @@
     </aside>
 
 
-    <!-- =====================================================
-         MAIN
-    ====================================================== -->
+    <!-- ================= MAIN ================= -->
 
-    <main class="main-content">
+    <main class="main">
 
-        <!-- TOPBAR -->
+        <!-- TOP BAR -->
 
         <header class="topbar">
 
-            <div>
-                <div class="breadcrumb">
-                    PROJECT / DRONE RECONSTRUCTION
+            <div class="topbar-left">
+
+                <div class="system-label">
+                    <span class="terminal-symbol">›</span>
+                    MISSION CONTROL
                 </div>
 
-                <h1 id="pageTitle">Geospatial Reconstruction Dashboard</h1>
+                <div class="system-location">
+                    DRONE VISUAL COMPUTING UNIT
+                </div>
+
             </div>
 
+            <div class="topbar-right">
 
-            <div class="topbar-actions">
-
-                <div class="live-pill">
+                <div class="top-status">
                     <span class="status-dot"></span>
                     LIVE PIPELINE
                 </div>
 
-                <button class="icon-button" title="Notifications">
-                    ♢
-                </button>
-
-                <div class="profile">
-                    <div class="profile-avatar">AI</div>
-                    <div>
-                        <strong>AI Operator</strong>
-                        <small>Administrator</small>
-                    </div>
+                <div class="utc-clock" id="utcClock">
+                    00:00:00 UTC
                 </div>
 
             </div>
@@ -197,192 +169,315 @@
         </header>
 
 
-        <!-- =================================================
-             DASHBOARD
-        ================================================== -->
+        <!-- ================= OVERVIEW ================= -->
 
-        <section class="page-section active" id="dashboard">
+        <section id="overview" class="section hero-section">
 
-            <div class="hero-section">
+            <div class="hero-content">
 
-                <div>
-                    <div class="eyebrow">
-                        <span></span>
-                        AUTONOMOUS AERIAL INTELLIGENCE
-                    </div>
-
-                    <h2>
-                        From drone video to a
-                        <span>georeferenced digital twin.</span>
-                    </h2>
-
-                    <p>
-                        AI-powered single-pass reconstruction combining
-                        depth estimation, visual SLAM, sensor fusion,
-                        dynamic-object filtering and confidence-aware geometry.
-                    </p>
+                <div class="eyebrow">
+                    <span></span>
+                    AUTONOMOUS AERIAL MAPPING SYSTEM
                 </div>
 
+                <h1>
+                    DRONE
+                    <span>DIGITAL TWIN</span>
+                </h1>
+
+                <p class="hero-description">
+                    Vision-based 3D reconstruction and spatial intelligence
+                    for autonomous aerial environments.
+                </p>
 
                 <div class="hero-actions">
 
-                    <button class="primary-button" onclick="startPipeline()">
-                        <span>▶</span>
-                        Run Reconstruction
+                    <button class="primary-btn" onclick="scrollToSection('reconstruction')">
+                        <span>OPEN 3D VIEWER</span>
+                        <span>→</span>
                     </button>
 
-                    <button class="secondary-button" onclick="loadPLYModel()">
-                        <span>◈</span>
-                        Load 3D Twin
+                    <button class="secondary-btn" onclick="refreshPipeline()">
+                        ↻ REFRESH PIPELINE
                     </button>
 
                 </div>
 
             </div>
 
+            <div class="hero-visual">
 
-            <!-- PIPELINE -->
+                <div class="radar">
 
-            <div class="section-heading">
+                    <div class="radar-ring ring-1"></div>
+                    <div class="radar-ring ring-2"></div>
+                    <div class="radar-ring ring-3"></div>
+
+                    <div class="radar-cross horizontal"></div>
+                    <div class="radar-cross vertical"></div>
+
+                    <div class="radar-sweep"></div>
+
+                    <div class="drone-symbol">
+                        <div class="drone-body"></div>
+                        <div class="drone-wing left"></div>
+                        <div class="drone-wing right"></div>
+                    </div>
+
+                    <div class="radar-point point-1"></div>
+                    <div class="radar-point point-2"></div>
+                    <div class="radar-point point-3"></div>
+
+                </div>
+
+                <div class="coordinate-readout">
+                    X <span>+002.41</span>
+                    Y <span>-001.18</span>
+                    Z <span>+004.92</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PIPELINE ================= -->
+
+        <section class="section">
+
+            <div class="section-header">
+
                 <div>
-                    <span class="section-kicker">AI PIPELINE</span>
-                    <h3>End-to-End Reconstruction Stack</h3>
+                    <div class="section-kicker">01 / PIPELINE</div>
+                    <h2>Autonomous Reconstruction Stack</h2>
                 </div>
 
-                <span class="pipeline-status">
+                <div class="header-status">
                     <span class="status-dot"></span>
-                    Ready
-                </span>
-            </div>
-
-
-            <div class="pipeline">
-
-                <div class="pipeline-step complete">
-                    <div class="pipeline-number">01</div>
-                    <div class="pipeline-icon">▣</div>
-                    <strong>Drone Video</strong>
-                    <small>868 frames</small>
-                </div>
-
-                <div class="pipeline-line"></div>
-
-                <div class="pipeline-step complete">
-                    <div class="pipeline-number">02</div>
-                    <div class="pipeline-icon">◆</div>
-                    <strong>AI Depth</strong>
-                    <small>Depth inference</small>
-                </div>
-
-                <div class="pipeline-line"></div>
-
-                <div class="pipeline-step complete">
-                    <div class="pipeline-number">03</div>
-                    <div class="pipeline-icon">⌁</div>
-                    <strong>Visual SLAM</strong>
-                    <small>Pose estimation</small>
-                </div>
-
-                <div class="pipeline-line"></div>
-
-                <div class="pipeline-step complete">
-                    <div class="pipeline-number">04</div>
-                    <div class="pipeline-icon">✦</div>
-                    <strong>Sensor Fusion</strong>
-                    <small>GPS + IMU + VO</small>
-                </div>
-
-                <div class="pipeline-line"></div>
-
-                <div class="pipeline-step active">
-                    <div class="pipeline-number">05</div>
-                    <div class="pipeline-icon">◇</div>
-                    <strong>Geometry</strong>
-                    <small>Confidence filtering</small>
-                </div>
-
-                <div class="pipeline-line"></div>
-
-                <div class="pipeline-step">
-                    <div class="pipeline-number">06</div>
-                    <div class="pipeline-icon">⬡</div>
-                    <strong>Digital Twin</strong>
-                    <small>3D geospatial model</small>
+                    MODULE STATUS
                 </div>
 
             </div>
 
 
-            <!-- STATS -->
+            <div class="pipeline-grid">
+
+                <article class="pipeline-card">
+                    <div class="module-number">01</div>
+                    <div class="module-icon">◇</div>
+                    <h3>Single-Pass Reconstruction</h3>
+                    <p>
+                        Sparse scene geometry generated from aerial video.
+                    </p>
+                    <div class="module-status" id="status-recon">
+                        <span></span> LOADING
+                    </div>
+                </article>
+
+
+                <article class="pipeline-card">
+                    <div class="module-number">02</div>
+                    <div class="module-icon">◈</div>
+                    <h3>AI Depth Estimation</h3>
+                    <p>
+                        Depth-model integration layer for dense geometry.
+                    </p>
+                    <div class="module-status" id="status-depth">
+                        <span></span> ADAPTER READY
+                    </div>
+                </article>
+
+
+                <article class="pipeline-card">
+                    <div class="module-number">03</div>
+                    <div class="module-icon">⌁</div>
+                    <h3>Visual SLAM</h3>
+                    <p>
+                        Camera motion and spatial trajectory estimation.
+                    </p>
+                    <div class="module-status" id="status-slam">
+                        <span></span> TRACKING
+                    </div>
+                </article>
+
+
+                <article class="pipeline-card">
+                    <div class="module-number">04</div>
+                    <div class="module-icon">⌘</div>
+                    <h3>Multi-Sensor Fusion</h3>
+                    <p>
+                        Visual, GPS and IMU alignment for metric positioning.
+                    </p>
+                    <div class="module-status" id="status-fusion">
+                        <span></span> VISUAL FALLBACK
+                    </div>
+                </article>
+
+
+                <article class="pipeline-card">
+                    <div class="module-number">05</div>
+                    <div class="module-icon">▧</div>
+                    <h3>Dynamic-Object Filtering</h3>
+                    <p>
+                        Dynamic scene elements isolated from static geometry.
+                    </p>
+                    <div class="module-status" id="status-dynamic">
+                        <span></span> MASK READY
+                    </div>
+                </article>
+
+
+                <article class="pipeline-card">
+                    <div class="module-number">06</div>
+                    <div class="module-icon">◎</div>
+                    <h3>Confidence-Aware Geometry</h3>
+                    <p>
+                        Geometry quality and confidence metadata layer.
+                    </p>
+                    <div class="module-status" id="status-confidence">
+                        <span></span> QA READY
+                    </div>
+                </article>
+
+
+                <article class="pipeline-card">
+                    <div class="module-number">07</div>
+                    <div class="module-icon">⊙</div>
+                    <h3>Georeferenced Digital Twin</h3>
+                    <p>
+                        Local reconstruction prepared for geographic alignment.
+                    </p>
+                    <div class="module-status" id="status-geo">
+                        <span></span> LOCAL FRAME
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TELEMETRY ================= -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <div class="section-kicker">02 / TELEMETRY</div>
+                    <h2>Mission Telemetry</h2>
+                </div>
+
+            </div>
 
             <div class="stats-grid">
 
                 <div class="stat-card">
-                    <div class="stat-icon pink">▣</div>
-                    <div>
-                        <span>VIDEO FRAMES</span>
-                        <strong>868</strong>
-                        <small>Processed</small>
-                    </div>
+                    <div class="stat-label">VIDEO FRAMES</div>
+                    <div class="stat-value" id="frameCount">868</div>
+                    <div class="stat-meta">PROCESSED</div>
                 </div>
 
                 <div class="stat-card">
-                    <div class="stat-icon purple">◆</div>
-                    <div>
-                        <span>3D POINTS</span>
-                        <strong id="pointCount">0</strong>
-                        <small>Reconstructed</small>
-                    </div>
+                    <div class="stat-label">3D POINTS</div>
+                    <div class="stat-value" id="pointCount">—</div>
+                    <div class="stat-meta">RECONSTRUCTION</div>
                 </div>
 
                 <div class="stat-card">
-                    <div class="stat-icon rose">⌁</div>
-                    <div>
-                        <span>TRAJECTORY</span>
-                        <strong>868</strong>
-                        <small>Pose samples</small>
-                    </div>
+                    <div class="stat-label">TRAJECTORY</div>
+                    <div class="stat-value" id="trajectoryCount">868</div>
+                    <div class="stat-meta">POSE SAMPLES</div>
                 </div>
 
                 <div class="stat-card">
-                    <div class="stat-icon green">✓</div>
-                    <div>
-                        <span>CONFIDENCE</span>
-                        <strong>92.4%</strong>
-                        <small>Geometry quality</small>
-                    </div>
+                    <div class="stat-label">FRAME COVERAGE</div>
+                    <div class="stat-value" id="coverageValue">—</div>
+                    <div class="stat-meta">VIDEO / POSE</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">GPS</div>
+                    <div class="stat-value status-value" id="gpsStatus">OFF</div>
+                    <div class="stat-meta">DATA SOURCE</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">IMU</div>
+                    <div class="stat-value status-value" id="imuStatus">OFF</div>
+                    <div class="stat-meta">DATA SOURCE</div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RECONSTRUCTION ================= -->
+
+        <section id="reconstruction" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <div class="section-kicker">03 / SPATIAL VIEW</div>
+                    <h2>3D Reconstruction</h2>
+                </div>
+
+                <div class="viewer-state">
+                    <span class="status-dot"></span>
+                    <span id="viewerState">INITIALIZING</span>
                 </div>
 
             </div>
 
 
-            <!-- MAIN GRID -->
+            <div class="viewer-layout">
 
-            <div class="dashboard-grid">
+                <div class="viewer-card">
 
-                <!-- 3D VIEWER -->
+                    <div class="viewer-toolbar">
 
-                <div class="panel viewer-panel">
+                        <div class="toolbar-left">
 
-                    <div class="panel-header">
+                            <button
+                                class="tool-btn active"
+                                id="viewPointCloud"
+                                onclick="setViewMode('pointcloud')"
+                            >
+                                POINT CLOUD
+                            </button>
 
-                        <div>
-                            <span class="section-kicker">3D DIGITAL TWIN</span>
-                            <h3>Reconstruction Viewer</h3>
+                            <button
+                                class="tool-btn"
+                                id="viewTrajectory"
+                                onclick="setViewMode('trajectory')"
+                            >
+                                TRAJECTORY
+                            </button>
+
+                            <button
+                                class="tool-btn"
+                                id="viewDigital"
+                                onclick="setViewMode('digital')"
+                            >
+                                DIGITAL TWIN
+                            </button>
+
                         </div>
 
-                        <div class="viewer-controls">
+                        <div class="toolbar-right">
 
-                            <button class="viewer-mode active" data-mode="pointcloud">
-                                Point Cloud
+                            <button class="icon-btn" onclick="toggleGrid()">
+                                GRID
                             </button>
 
-                            <button class="viewer-mode" data-mode="wireframe">
-                                Wireframe
+                            <button class="icon-btn" onclick="resetView()">
+                                RESET
                             </button>
 
-                            <button class="viewer-mode" data-mode="points">
-                                Points
+                            <button class="icon-btn" onclick="fitView()">
+                                FIT
                             </button>
 
                         </div>
@@ -390,336 +485,271 @@
                     </div>
 
 
-                    <div class="viewer-container" id="three-container">
+                    <div id="three-container" class="three-container">
 
                         <div class="viewer-loading" id="viewerLoading">
                             <div class="loader-ring"></div>
-                            <span>Initializing 3D engine...</span>
+                            <span>LOADING RECONSTRUCTION...</span>
                         </div>
 
+                        <div class="viewer-crosshair">
+                            <span></span>
+                        </div>
 
-                        <div class="viewer-overlay top-left">
-                            <span class="overlay-badge">
-                                ● LIVE
+                        <div class="viewer-corner top-left"></div>
+                        <div class="viewer-corner top-right"></div>
+                        <div class="viewer-corner bottom-left"></div>
+                        <div class="viewer-corner bottom-right"></div>
+
+                        <div class="viewer-hud hud-top-left">
+                            <div>VIEW / 3D</div>
+                            <strong id="hudModel">RECONSTRUCTION.PLY</strong>
+                        </div>
+
+                        <div class="viewer-hud hud-top-right">
+                            <div>COORDINATE FRAME</div>
+                            <strong>LOCAL / ENU</strong>
+                        </div>
+
+                        <div class="viewer-hud hud-bottom-left">
+                            <div>POINTS</div>
+                            <strong id="hudPoints">—</strong>
+                        </div>
+
+                        <div class="viewer-hud hud-bottom-right">
+                            <div>TRACK</div>
+                            <strong id="hudTrack">ACTIVE</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="viewer-footer">
+
+                        <span>LEFT DRAG: ORBIT</span>
+                        <span>SCROLL: ZOOM</span>
+                        <span>RIGHT DRAG: PAN</span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- VIEWER SIDE PANEL -->
+
+                <aside class="viewer-panel">
+
+                    <div class="panel-block">
+
+                        <div class="panel-title">
+                            RECONSTRUCTION
+                        </div>
+
+                        <div class="data-row">
+                            <span>Source</span>
+                            <strong id="modelSource">reconstruction.ply</strong>
+                        </div>
+
+                        <div class="data-row">
+                            <span>Geometry</span>
+                            <strong id="geometryType">POINT CLOUD</strong>
+                        </div>
+
+                        <div class="data-row">
+                            <span>Color</span>
+                            <strong id="colorState">DETECTING</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel-block">
+
+                        <div class="panel-title">
+                            DEPTH PIPELINE
+                        </div>
+
+                        <div class="depth-status">
+                            <span class="status-dot gray"></span>
+                            <span id="depthStatus">
+                                DEPTH MAP NOT ATTACHED
                             </span>
                         </div>
 
-
-                        <div class="viewer-overlay top-right">
-                            <div>XYZ AXIS</div>
-                            <div class="axis-mini">
-                                X · Y · Z
-                            </div>
+                        <div class="progress-track">
+                            <div
+                                class="progress-fill"
+                                id="depthProgress"
+                                style="width: 0%"
+                            ></div>
                         </div>
 
-
-                        <div class="viewer-overlay bottom-left">
-
-                            <div class="viewer-metric">
-                                <span>MODEL</span>
-                                <strong>reconstruction.ply</strong>
-                            </div>
-
-                            <div class="viewer-metric">
-                                <span>TYPE</span>
-                                <strong>SPARSE POINT CLOUD</strong>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PIPELINE MONITOR -->
-
-                <div class="panel monitor-panel">
-
-                    <div class="panel-header">
-                        <div>
-                            <span class="section-kicker">SYSTEM MONITOR</span>
-                            <h3>AI Modules</h3>
-                        </div>
-
-                        <span class="status-text">ACTIVE</span>
-                    </div>
-
-
-                    <div class="module-list">
-
-                        <div class="module-row">
-                            <div class="module-symbol">◆</div>
-
-                            <div class="module-info">
-                                <strong>AI Depth Estimation</strong>
-                                <span>Depth inference engine</span>
-                            </div>
-
-                            <div class="module-state success">
-                                96%
-                            </div>
-                        </div>
-
-
-                        <div class="module-row">
-                            <div class="module-symbol">⌁</div>
-
-                            <div class="module-info">
-                                <strong>Visual SLAM</strong>
-                                <span>ORB pose tracking</span>
-                            </div>
-
-                            <div class="module-state success">
-                                94%
-                            </div>
-                        </div>
-
-
-                        <div class="module-row">
-                            <div class="module-symbol">✦</div>
-
-                            <div class="module-info">
-                                <strong>Multi-Sensor Fusion</strong>
-                                <span>VO + GPS + IMU</span>
-                            </div>
-
-                            <div class="module-state warning">
-                                WAIT
-                            </div>
-                        </div>
-
-
-                        <div class="module-row">
-                            <div class="module-symbol">◇</div>
-
-                            <div class="module-info">
-                                <strong>Dynamic Filtering</strong>
-                                <span>Moving object rejection</span>
-                            </div>
-
-                            <div class="module-state success">
-                                91%
-                            </div>
-                        </div>
-
-
-                        <div class="module-row">
-                            <div class="module-symbol">✓</div>
-
-                            <div class="module-info">
-                                <strong>Confidence Geometry</strong>
-                                <span>Quality-aware reconstruction</span>
-                            </div>
-
-                            <div class="module-state success">
-                                92%
-                            </div>
-                        </div>
-
-
-                        <div class="module-row">
-                            <div class="module-symbol">⬡</div>
-
-                            <div class="module-info">
-                                <strong>Georeferencing</strong>
-                                <span>Coordinate alignment</span>
-                            </div>
-
-                            <div class="module-state warning">
-                                WAIT
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- LOWER GRID -->
-
-            <div class="lower-grid">
-
-                <div class="panel">
-
-                    <div class="panel-header">
-
-                        <div>
-                            <span class="section-kicker">TRAJECTORY</span>
-                            <h3>Drone Flight Path</h3>
-                        </div>
-
-                        <button class="small-button" onclick="openTrajectory()">
-                            View full →
-                        </button>
-
-                    </div>
-
-
-                    <div class="trajectory-preview">
-
-                        <div class="trajectory-line"></div>
-
-                        <div class="trajectory-point p1"></div>
-                        <div class="trajectory-point p2"></div>
-                        <div class="trajectory-point p3"></div>
-                        <div class="trajectory-point p4"></div>
-                        <div class="trajectory-point p5"></div>
-
-                    </div>
-
-                    <div class="trajectory-footer">
-                        <span>START</span>
-                        <strong>868 pose estimates</strong>
-                        <span>END</span>
-                    </div>
-
-                </div>
-
-
-                <div class="panel confidence-panel">
-
-                    <div class="panel-header">
-
-                        <div>
-                            <span class="section-kicker">QUALITY</span>
-                            <h3>Confidence Distribution</h3>
+                        <div class="depth-footer">
+                            <span>AI ADAPTER</span>
+                            <strong id="depthValue">READY</strong>
                         </div>
 
                     </div>
 
 
-                    <div class="confidence-bars">
+                    <div class="panel-block">
 
-                        <div class="confidence-row">
-                            <span>High</span>
-                            <div class="bar">
-                                <span style="width:82%"></span>
-                            </div>
-                            <strong>82%</strong>
+                        <div class="panel-title">
+                            FILTERS
                         </div>
 
-                        <div class="confidence-row">
-                            <span>Medium</span>
-                            <div class="bar">
-                                <span style="width:14%"></span>
-                            </div>
-                            <strong>14%</strong>
-                        </div>
+                        <label class="switch-row">
 
-                        <div class="confidence-row">
-                            <span>Low</span>
-                            <div class="bar">
-                                <span style="width:4%"></span>
-                            </div>
-                            <strong>4%</strong>
-                        </div>
+                            <span>
+                                Dynamic Objects
+                            </span>
 
-                    </div>
+                            <input
+                                type="checkbox"
+                                id="dynamicToggle"
+                                onchange="toggleDynamicMode()"
+                            >
 
-                </div>
+                            <span class="switch"></span>
 
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             RECONSTRUCTION
-        ================================================== -->
-
-        <section class="page-section" id="reconstruction">
-
-            <div class="page-heading">
-                <div>
-                    <span class="section-kicker">SINGLE-PASS AI</span>
-                    <h2>3D Reconstruction</h2>
-                    <p>
-                        Generate sparse geometry from aerial imagery using
-                        feature extraction, depth inference and camera motion.
-                    </p>
-                </div>
-
-                <button class="primary-button" onclick="startPipeline()">
-                    ▶ Start Reconstruction
-                </button>
-            </div>
-
-
-            <div class="feature-grid">
-
-                <div class="feature-card">
-                    <div class="feature-icon">◆</div>
-                    <h3>AI Depth Estimation</h3>
-                    <p>
-                        Predict per-pixel scene depth from drone imagery
-                        for geometry generation.
-                    </p>
-                    <span class="feature-status">READY</span>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">⌁</div>
-                    <h3>Single-Pass Geometry</h3>
-                    <p>
-                        Convert the complete video sequence into a compact
-                        spatial representation.
-                    </p>
-                    <span class="feature-status">READY</span>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">◇</div>
-                    <h3>Dynamic Filtering</h3>
-                    <p>
-                        Identify unstable features caused by moving objects
-                        and reduce their impact on geometry.
-                    </p>
-                    <span class="feature-status">READY</span>
-                </div>
-
-            </div>
-
-
-            <div class="panel large-panel">
-
-                <div class="panel-header">
-
-                    <div>
-                        <span class="section-kicker">OUTPUT</span>
-                        <h3>3D Reconstruction Asset</h3>
-                    </div>
-
-                    <div class="asset-actions">
-                        <button class="small-button" onclick="loadPLYModel()">
-                            Load PLY
-                        </button>
-
-                        <label class="small-button upload-button">
-                            Upload Model
-                            <input type="file" id="modelUpload" accept=".ply,.obj,.glb,.gltf">
                         </label>
+
+
+                        <label class="switch-row">
+
+                            <span>
+                                Confidence Layer
+                            </span>
+
+                            <input
+                                type="checkbox"
+                                id="confidenceToggle"
+                                onchange="toggleConfidenceMode()"
+                            >
+
+                            <span class="switch"></span>
+
+                        </label>
+
                     </div>
+
+
+                    <div class="panel-block">
+
+                        <div class="panel-title">
+                            MODEL INPUT
+                        </div>
+
+                        <label class="file-button">
+                            LOAD 3D MODEL
+                            <input
+                                type="file"
+                                id="modelFileInput"
+                                accept=".ply,.obj,.glb,.gltf"
+                            >
+                        </label>
+
+                        <div class="file-name" id="selectedModel">
+                            No local model selected
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TRAJECTORY ================= -->
+
+        <section id="trajectory" class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <div class="section-kicker">04 / MOTION</div>
+                    <h2>Flight Trajectory</h2>
+                </div>
+
+                <div class="header-status">
+                    <span class="status-dot"></span>
+                    VISUAL TRACK
+                </div>
+
+            </div>
+
+
+            <div class="trajectory-layout">
+
+                <div class="trajectory-chart-card">
+
+                    <div class="chart-header">
+
+                        <div>
+                            <span class="chart-label">TOP-DOWN PROJECTION</span>
+                            <h3>Estimated Flight Path</h3>
+                        </div>
+
+                        <div class="trajectory-legend">
+                            <span class="legend-line"></span>
+                            VISUAL VO
+                        </div>
+
+                    </div>
+
+                    <canvas id="trajectoryCanvas"></canvas>
 
                 </div>
 
 
-                <div class="asset-box">
+                <div class="trajectory-info">
 
-                    <div class="asset-icon">⬡</div>
+                    <div class="info-card">
 
-                    <strong>reconstruction.ply</strong>
+                        <div class="info-label">POSE SAMPLES</div>
 
-                    <span>
-                        Preliminary sparse point cloud generated from drone video
-                    </span>
+                        <div class="info-big" id="trajectoryBig">
+                            868
+                        </div>
 
-                    <div class="asset-meta">
-                        <span>POINT CLOUD</span>
-                        <span>OPEN3D</span>
-                        <span>868 FRAME SOURCE</span>
+                        <div class="info-description">
+                            Camera trajectory samples loaded from
+                            fused_trajectory.csv.
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <div class="info-label">SLAM STATE</div>
+
+                        <div class="slm-state">
+                            <span class="status-dot"></span>
+                            <strong>VISUAL TRACKING</strong>
+                        </div>
+
+                        <div class="info-description">
+                            Current trajectory is available in the local
+                            reconstruction frame.
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <div class="info-label">SCALE</div>
+
+                        <div class="scale-warning">
+                            MONOCULAR / RELATIVE
+                        </div>
+
+                        <div class="info-description">
+                            Absolute metric scale requires GPS/IMU fusion.
+                        </div>
+
                     </div>
 
                 </div>
@@ -729,117 +759,20 @@
         </section>
 
 
-        <!-- =================================================
-             SLAM
-        ================================================== -->
+        <!-- ================= SENSOR FUSION ================= -->
 
-        <section class="page-section" id="slam">
+        <section id="fusion" class="section">
 
-            <div class="page-heading">
+            <div class="section-header">
 
                 <div>
-                    <span class="section-kicker">SPATIAL LOCALIZATION</span>
-                    <h2>Visual SLAM</h2>
-
-                    <p>
-                        Camera motion estimation using visual features,
-                        epipolar geometry and pose recovery.
-                    </p>
-                </div>
-
-                <div class="metric-highlight">
-                    <span>POSE SAMPLES</span>
-                    <strong>868</strong>
-                </div>
-
-            </div>
-
-
-            <div class="slam-grid">
-
-                <div class="panel slam-visual">
-
-                    <div class="panel-header">
-                        <div>
-                            <span class="section-kicker">VISUAL TRAJECTORY</span>
-                            <h3>Estimated Camera Path</h3>
-                        </div>
-                    </div>
-
-                    <div class="slam-canvas">
-                        <div class="slam-path"></div>
-
-                        <span class="slam-node n1"></span>
-                        <span class="slam-node n2"></span>
-                        <span class="slam-node n3"></span>
-                        <span class="slam-node n4"></span>
-                        <span class="slam-node n5"></span>
-                    </div>
-
-                </div>
-
-
-                <div class="panel">
-
-                    <div class="panel-header">
-                        <div>
-                            <span class="section-kicker">VO METRICS</span>
-                            <h3>Tracking Quality</h3>
-                        </div>
-                    </div>
-
-                    <div class="metric-list">
-
-                        <div>
-                            <span>Tracked Frames</span>
-                            <strong>868</strong>
-                        </div>
-
-                        <div>
-                            <span>ORB Features</span>
-                            <strong>3000</strong>
-                        </div>
-
-                        <div>
-                            <span>Feature Match Ratio</span>
-                            <strong>78.6%</strong>
-                        </div>
-
-                        <div>
-                            <span>Pose Confidence</span>
-                            <strong>94.2%</strong>
-                        </div>
-
-                        <div>
-                            <span>Tracking Status</span>
-                            <strong class="green-text">STABLE</strong>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             FUSION
-        ================================================== -->
-
-        <section class="page-section" id="fusion">
-
-            <div class="page-heading">
-
-                <div>
-                    <span class="section-kicker">SENSOR INTELLIGENCE</span>
+                    <div class="section-kicker">05 / SENSORS</div>
                     <h2>Multi-Sensor Fusion</h2>
+                </div>
 
-                    <p>
-                        Combine visual odometry with GPS and IMU measurements
-                        to improve trajectory stability and metric accuracy.
-                    </p>
+                <div class="header-status">
+                    <span class="status-dot"></span>
+                    SENSOR MATRIX
                 </div>
 
             </div>
@@ -847,19 +780,30 @@
 
             <div class="sensor-grid">
 
-                <div class="sensor-card active">
+                <div class="sensor-card">
 
-                    <div class="sensor-top">
-                        <div class="sensor-icon">⌁</div>
-                        <span>ACTIVE</span>
+                    <div class="sensor-header">
+                        <div class="sensor-symbol">◉</div>
+                        <div>
+                            <h3>VISION</h3>
+                            <span>PRIMARY SENSOR</span>
+                        </div>
                     </div>
 
-                    <h3>Visual Odometry</h3>
-                    <p>Camera-derived motion estimate</p>
+                    <div class="sensor-state active">
+                        ONLINE
+                    </div>
 
-                    <div class="sensor-value">
-                        <strong>868</strong>
-                        <small>samples</small>
+                    <div class="sensor-line"></div>
+
+                    <div class="sensor-data">
+                        <span>Trajectory</span>
+                        <strong id="visionTrajectory">868 POSES</strong>
+                    </div>
+
+                    <div class="sensor-data">
+                        <span>Source</span>
+                        <strong>ORB / VO</strong>
                     </div>
 
                 </div>
@@ -867,17 +811,28 @@
 
                 <div class="sensor-card">
 
-                    <div class="sensor-top">
-                        <div class="sensor-icon">◎</div>
-                        <span>READY</span>
+                    <div class="sensor-header">
+                        <div class="sensor-symbol">⌖</div>
+                        <div>
+                            <h3>GPS</h3>
+                            <span>GLOBAL POSITION</span>
+                        </div>
                     </div>
 
-                    <h3>GPS</h3>
-                    <p>Absolute geographic positioning</p>
+                    <div class="sensor-state" id="gpsPanelState">
+                        NOT DETECTED
+                    </div>
 
-                    <div class="sensor-value">
-                        <strong>—</strong>
-                        <small>input required</small>
+                    <div class="sensor-line"></div>
+
+                    <div class="sensor-data">
+                        <span>Input</span>
+                        <strong>data/gps.csv</strong>
+                    </div>
+
+                    <div class="sensor-data">
+                        <span>Status</span>
+                        <strong id="gpsPanelDetail">WAITING</strong>
                     </div>
 
                 </div>
@@ -885,50 +840,64 @@
 
                 <div class="sensor-card">
 
-                    <div class="sensor-top">
-                        <div class="sensor-icon">✦</div>
-                        <span>READY</span>
+                    <div class="sensor-header">
+                        <div class="sensor-symbol">⌁</div>
+                        <div>
+                            <h3>IMU</h3>
+                            <span>INERTIAL MOTION</span>
+                        </div>
                     </div>
 
-                    <h3>IMU</h3>
-                    <p>Acceleration and angular velocity</p>
+                    <div class="sensor-state" id="imuPanelState">
+                        NOT DETECTED
+                    </div>
 
-                    <div class="sensor-value">
-                        <strong>—</strong>
-                        <small>input required</small>
+                    <div class="sensor-line"></div>
+
+                    <div class="sensor-data">
+                        <span>Input</span>
+                        <strong>data/imu.csv</strong>
+                    </div>
+
+                    <div class="sensor-data">
+                        <span>Status</span>
+                        <strong id="imuPanelDetail">WAITING</strong>
                     </div>
 
                 </div>
 
-            </div>
 
+                <div class="sensor-card fusion-card">
 
-            <div class="panel fusion-flow">
+                    <div class="sensor-header">
+                        <div class="sensor-symbol">✦</div>
+                        <div>
+                            <h3>FUSION CORE</h3>
+                            <span>STATE ESTIMATION</span>
+                        </div>
+                    </div>
 
-                <div class="fusion-node">
-                    <span>VO</span>
-                    <small>Visual</small>
-                </div>
+                    <div class="sensor-state active" id="fusionPanelState">
+                        VISUAL FALLBACK
+                    </div>
 
-                <div class="fusion-arrow">→</div>
+                    <div class="sensor-line"></div>
 
-                <div class="fusion-node">
-                    <span>GPS</span>
-                    <small>Global</small>
-                </div>
+                    <div class="fusion-equation">
+                        VISION
+                        <span>+</span>
+                        GPS
+                        <span>+</span>
+                        IMU
+                        <span>→</span>
+                        POSE
+                    </div>
 
-                <div class="fusion-arrow">→</div>
+                    <div class="sensor-data">
+                        <span>Current backend</span>
+                        <strong>VISUAL OUTPUT</strong>
+                    </div>
 
-                <div class="fusion-node">
-                    <span>IMU</span>
-                    <small>Inertial</small>
-                </div>
-
-                <div class="fusion-arrow">→</div>
-
-                <div class="fusion-node final">
-                    <span>FUSED</span>
-                    <small>Trajectory</small>
                 </div>
 
             </div>
@@ -936,104 +905,15 @@
         </section>
 
 
-        <!-- =================================================
-             DIGITAL TWIN
-        ================================================== -->
+        <!-- ================= ANALYTICS ================= -->
 
-        <section class="page-section" id="digital-twin">
+        <section id="analytics" class="section">
 
-            <div class="page-heading">
+            <div class="section-header">
 
                 <div>
-                    <span class="section-kicker">GEOSPATIAL MODEL</span>
-                    <h2>Georeferenced Digital Twin</h2>
-
-                    <p>
-                        Unified 3D representation of the observed environment,
-                        camera trajectory and geographic reference system.
-                    </p>
-                </div>
-
-                <button class="primary-button" onclick="loadPLYModel()">
-                    ◈ Open Twin
-                </button>
-
-            </div>
-
-
-            <div class="panel twin-panel">
-
-                <div class="twin-placeholder">
-
-                    <div class="twin-grid"></div>
-
-                    <div class="twin-core">
-                        <div class="core-ring"></div>
-                        <div class="core-ring ring-two"></div>
-                        <div class="core-center">⬡</div>
-                    </div>
-
-                    <div class="coordinate-label label-a">
-                        LAT 18.5204°
-                    </div>
-
-                    <div class="coordinate-label label-b">
-                        LON 73.8567°
-                    </div>
-
-                    <div class="coordinate-label label-c">
-                        ALT 100.0 M
-                    </div>
-
-                    <div class="twin-caption">
-                        <span>GEOREFERENCED DIGITAL TWIN</span>
-                        <strong>Spatial coordinate alignment ready</strong>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="geospatial-grid">
-
-                <div class="geo-card">
-                    <span>REFERENCE SYSTEM</span>
-                    <strong>WGS 84</strong>
-                </div>
-
-                <div class="geo-card">
-                    <span>LATITUDE</span>
-                    <strong>18.5204°</strong>
-                </div>
-
-                <div class="geo-card">
-                    <span>LONGITUDE</span>
-                    <strong>73.8567°</strong>
-                </div>
-
-                <div class="geo-card">
-                    <span>ALTITUDE</span>
-                    <strong>100.0 m</strong>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             ANALYTICS
-        ================================================== -->
-
-        <section class="page-section" id="analytics">
-
-            <div class="page-heading">
-
-                <div>
-                    <span class="section-kicker">PERFORMANCE INTELLIGENCE</span>
-                    <h2>Analytics</h2>
-                    <p>Monitor reconstruction quality and system performance.</p>
+                    <div class="section-kicker">06 / ANALYTICS</div>
+                    <h2>System Analytics</h2>
                 </div>
 
             </div>
@@ -1041,41 +921,57 @@
 
             <div class="analytics-grid">
 
-                <div class="panel analytics-main">
+                <div class="analytics-card">
 
-                    <div class="panel-header">
-                        <div>
-                            <span class="section-kicker">FRAME PROCESSING</span>
-                            <h3>Pipeline Throughput</h3>
-                        </div>
+                    <div class="analytics-title">
+                        PIPELINE COVERAGE
                     </div>
 
-                    <div class="chart">
+                    <div class="big-percentage" id="analyticsCoverage">
+                        —
+                    </div>
 
-                        <div class="chart-y">
-                            <span>100</span>
-                            <span>75</span>
-                            <span>50</span>
-                            <span>25</span>
-                            <span>0</span>
+                    <div class="progress-track large">
+                        <div
+                            class="progress-fill"
+                            id="coverageBar"
+                            style="width:0%"
+                        ></div>
+                    </div>
+
+                    <div class="analytics-note">
+                        Trajectory samples relative to available video frames.
+                    </div>
+
+                </div>
+
+
+                <div class="analytics-card">
+
+                    <div class="analytics-title">
+                        GEOMETRY STATUS
+                    </div>
+
+                    <div class="metric-list">
+
+                        <div class="metric">
+                            <span>Point cloud</span>
+                            <strong id="geometryMetric">WAITING</strong>
                         </div>
 
-                        <div class="chart-area">
+                        <div class="metric">
+                            <span>RGB attributes</span>
+                            <strong id="rgbMetric">CHECKING</strong>
+                        </div>
 
-                            <div class="chart-grid-line"></div>
-                            <div class="chart-grid-line"></div>
-                            <div class="chart-grid-line"></div>
-                            <div class="chart-grid-line"></div>
+                        <div class="metric">
+                            <span>Confidence field</span>
+                            <strong id="confidenceMetric">NOT ATTACHED</strong>
+                        </div>
 
-                            <svg viewBox="0 0 800 260" preserveAspectRatio="none">
-                                <polyline
-                                    points="0,210 80,185 160,195 240,140 320,155 400,110 480,125 560,80 640,95 720,55 800,65"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="4"
-                                />
-                            </svg>
-
+                        <div class="metric">
+                            <span>Dynamic mask</span>
+                            <strong>BACKEND READY</strong>
                         </div>
 
                     </div>
@@ -1083,35 +979,44 @@
                 </div>
 
 
-                <div class="panel">
+                <div class="analytics-card">
 
-                    <div class="panel-header">
-                        <div>
-                            <span class="section-kicker">SUMMARY</span>
-                            <h3>Performance</h3>
-                        </div>
+                    <div class="analytics-title">
+                        PROCESSING STACK
                     </div>
 
-                    <div class="performance-list">
+                    <div class="stack-bars">
 
-                        <div>
-                            <span>Average FPS</span>
-                            <strong>29.9</strong>
+                        <div class="stack-row">
+                            <span>VIDEO</span>
+                            <div class="mini-bar">
+                                <div style="width:100%"></div>
+                            </div>
+                            <strong>100%</strong>
                         </div>
 
-                        <div>
-                            <span>Processed Frames</span>
-                            <strong>868</strong>
+                        <div class="stack-row">
+                            <span>VO</span>
+                            <div class="mini-bar">
+                                <div id="voBar" style="width:100%"></div>
+                            </div>
+                            <strong id="voPercent">100%</strong>
                         </div>
 
-                        <div>
-                            <span>Point Cloud Size</span>
-                            <strong>16.8 MB</strong>
+                        <div class="stack-row">
+                            <span>GPS</span>
+                            <div class="mini-bar">
+                                <div id="gpsBar" style="width:0%"></div>
+                            </div>
+                            <strong id="gpsPercent">0%</strong>
                         </div>
 
-                        <div>
-                            <span>Pipeline Accuracy</span>
-                            <strong>92.4%</strong>
+                        <div class="stack-row">
+                            <span>IMU</span>
+                            <div class="mini-bar">
+                                <div id="imuBar" style="width:0%"></div>
+                            </div>
+                            <strong id="imuPercent">0%</strong>
                         </div>
 
                     </div>
@@ -1123,75 +1028,86 @@
         </section>
 
 
-        <!-- =================================================
-             CONFIDENCE
-        ================================================== -->
+        <!-- ================= DIGITAL TWIN ================= -->
 
-        <section class="page-section" id="confidence">
+        <section id="digital-twin" class="section">
 
-            <div class="page-heading">
+            <div class="section-header">
 
                 <div>
-                    <span class="section-kicker">GEOMETRIC RELIABILITY</span>
-                    <h2>Confidence-Aware Geometry</h2>
-
-                    <p>
-                        Assign confidence to reconstructed geometry so unreliable
-                        regions can be identified and filtered.
-                    </p>
-
+                    <div class="section-kicker">07 / DIGITAL TWIN</div>
+                    <h2>Georeferenced Mission Model</h2>
                 </div>
 
             </div>
 
 
-            <div class="confidence-dashboard">
+            <div class="digital-twin-layout">
 
-                <div class="confidence-score">
+                <div class="digital-visual">
 
-                    <div class="score-ring">
-                        <div>
-                            <strong>92.4%</strong>
-                            <span>CONFIDENCE</span>
-                        </div>
+                    <div class="digital-grid"></div>
+
+                    <div class="digital-center">
+                        <div class="digital-orbit"></div>
+                        <div class="digital-core">◇</div>
                     </div>
 
-                    <h3>High Quality Reconstruction</h3>
+                    <div class="digital-label label-north">N</div>
+                    <div class="digital-label label-south">S</div>
+                    <div class="digital-label label-east">E</div>
+                    <div class="digital-label label-west">W</div>
 
-                    <p>
-                        Most reconstructed geometry is classified as reliable.
-                    </p>
+                    <div class="digital-coordinate">
+                        FRAME: LOCAL<br>
+                        ORIGIN: 0.000 / 0.000 / 0.000
+                    </div>
 
                 </div>
 
 
-                <div class="panel confidence-detail">
+                <div class="digital-info">
 
-                    <div class="confidence-detail-row">
+                    <div class="digital-status">
+
+                        <span class="status-dot gray"></span>
+
                         <div>
-                            <strong>High Confidence</strong>
-                            <span>Stable geometry with strong feature support</span>
+                            <div class="digital-status-title">
+                                LOCAL COORDINATE FRAME
+                            </div>
+
+                            <div class="digital-status-text" id="geoDescription">
+                                GPS data has not been attached.
+                                Georeferencing remains backend-ready.
+                            </div>
                         </div>
 
-                        <b>82%</b>
                     </div>
 
-                    <div class="confidence-detail-row">
-                        <div>
-                            <strong>Medium Confidence</strong>
-                            <span>Geometry requiring additional validation</span>
+
+                    <div class="coordinate-table">
+
+                        <div class="coordinate-row">
+                            <span>LATITUDE</span>
+                            <strong id="latitudeValue">—</strong>
                         </div>
 
-                        <b>14%</b>
-                    </div>
-
-                    <div class="confidence-detail-row">
-                        <div>
-                            <strong>Low Confidence</strong>
-                            <span>Potentially unstable or dynamic regions</span>
+                        <div class="coordinate-row">
+                            <span>LONGITUDE</span>
+                            <strong id="longitudeValue">—</strong>
                         </div>
 
-                        <b>4%</b>
+                        <div class="coordinate-row">
+                            <span>ALTITUDE</span>
+                            <strong id="altitudeValue">—</strong>
+                        </div>
+
+                        <div class="coordinate-row">
+                            <span>REFERENCE</span>
+                            <strong id="referenceValue">LOCAL</strong>
+                        </div>
+
                     </div>
 
                 </div>
@@ -1200,22 +1116,153 @@
 
         </section>
 
+
+        <!-- ================= DATA INPUT ================= -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <div class="section-kicker">08 / DATA INPUT</div>
+                    <h2>Mission Data Sources</h2>
+                </div>
+
+            </div>
+
+
+            <div class="upload-grid">
+
+                <label class="upload-card">
+
+                    <div class="upload-icon">▶</div>
+
+                    <div>
+                        <h3>Drone Video</h3>
+                        <p>MP4 / MOV</p>
+                    </div>
+
+                    <input
+                        type="file"
+                        id="videoInput"
+                        accept="video/*"
+                    >
+
+                </label>
+
+
+                <label class="upload-card">
+
+                    <div class="upload-icon">⌖</div>
+
+                    <div>
+                        <h3>GPS Data</h3>
+                        <p>CSV</p>
+                    </div>
+
+                    <input
+                        type="file"
+                        id="gpsInput"
+                        accept=".csv"
+                    >
+
+                </label>
+
+
+                <label class="upload-card">
+
+                    <div class="upload-icon">⌁</div>
+
+                    <div>
+                        <h3>IMU Data</h3>
+                        <p>CSV</p>
+                    </div>
+
+                    <input
+                        type="file"
+                        id="imuInput"
+                        accept=".csv"
+                    >
+
+                </label>
+
+
+                <label class="upload-card">
+
+                    <div class="upload-icon">◇</div>
+
+                    <div>
+                        <h3>3D Model</h3>
+                        <p>PLY / OBJ / GLB</p>
+                    </div>
+
+                    <input
+                        type="file"
+                        id="modelInputAlt"
+                        accept=".ply,.obj,.glb,.gltf"
+                    >
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ACTIVITY ================= -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div>
+                    <div class="section-kicker">09 / SYSTEM LOG</div>
+                    <h2>Activity Monitor</h2>
+                </div>
+
+                <button class="clear-log" onclick="clearLogs()">
+                    CLEAR LOG
+                </button>
+
+            </div>
+
+
+            <div class="log-window" id="logWindow">
+
+                <div class="log-entry">
+                    <span class="log-time">SYSTEM</span>
+                    <span class="log-message">
+                        AEROVISION mission control initialized.
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="footer">
+
+            <div>
+                AEROVISION / AUTONOMOUS DRONE DIGITAL TWIN
+            </div>
+
+            <div>
+                SIH 2026 · VISUAL COMPUTING SYSTEM
+            </div>
+
+        </footer>
 
     </main>
 
 </div>
 
 
-<!-- =========================================================
-     TOAST
-========================================================= -->
+<!-- TOAST -->
 
 <div class="toast" id="toast">
     <span class="toast-icon">✓</span>
-    <div>
-        <strong id="toastTitle">System</strong>
-        <small id="toastMessage">Ready</small>
-    </div>
+    <span id="toastMessage">System ready</span>
 </div>
 
 
